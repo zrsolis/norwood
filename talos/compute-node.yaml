@@ -1,0 +1,122 @@
+version: v1alpha1
+debug: false
+persist: true
+machine:
+    type: worker
+    token: r3oof8.8z1wzz3d7wznfbbk
+    ca:
+        crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJQekNCOHFBREFnRUNBaEVBZ0FFUW9IaW9FZWl0anZOT0xyS3UxakFGQmdNclpYQXdFREVPTUF3R0ExVUUKQ2hNRmRHRnNiM013SGhjTk1qWXdPVEEzTURZME5UQXlXaGNOTXpZd09UQTBNRFkwTlRBeVdqQVFNUTR3REFZRApWUVFLRXdWMFlXeHZjekFxTUFVR0F5dGxjQU1oQUxtaXJaVFFncHVaL3pYS3lvM0graEEvZFdaYUVXMUJ1aTZCCi92TjlOWVd4bzJFd1h6QU9CZ05WSFE4QkFmOEVCQU1DQW9Rd0hRWURWUjBsQkJZd0ZBWUlLd1lCQlFVSEF3RUcKQ0NzR0FRVUZCd01DTUE4R0ExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRkVvb3JiU0N4cUs5VUVKLwovSE80M3oxUmx5THdNQVVHQXl0bGNBTkJBUHJRMHR6T0F2UXNrRW1xaVlnL1ozdnZhVm05Mzg1WmRWZ09rU2pHCjNFanJkUEFkcXpUYzJ4TVhySnIvT09FUS9HbUhIRTEvSlpHU0JtNVNZM28vcWdvPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+        key: ""
+    certSANs: []
+    install:
+        disk: /dev/nvme0n1
+        wipe: null
+    features:
+        diskQuotaSupport: true
+cluster:
+    token: c70quf.an9qk4hckc1y7afx
+---
+apiVersion: v1alpha1
+kind: DiscoveryServiceConfig
+name: default
+endpoint: https://discovery.talos.dev/
+---
+apiVersion: v1alpha1
+kind: DiscoveryIdentityConfig
+clusterID: 5q0aa8B8Korl/ZpRecX64waysFIwiBIZrrfFx19v8cM=
+clusterSecret: IYWe2YGBk/GYaaS+BWM28bssLbo7FAS3lxqNGPV9MmE=
+---
+apiVersion: v1alpha1
+kind: UnattendedInstallConfig
+installer:
+    image: factory.talos.dev/metal-installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba:v1.14.0
+provisioning:
+    diskSelector:
+        match: disk.dev_path == "/dev/sda"
+    wipe: false
+---
+apiVersion: v1alpha1
+kind: ResolverConfig
+hostDNS:
+    enabled: true
+    forwardKubeDNSToHost: true
+---
+apiVersion: v1alpha1
+kind: VolumeConfig
+name: EPHEMERAL
+mount:
+    secure: true
+---
+apiVersion: v1alpha1
+kind: FilesystemTrimConfig
+interval: 168h0m0s
+---
+apiVersion: v1alpha1
+kind: SecurityProfileConfig
+workloadIsolation: true
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+auto: stable
+---
+apiVersion: v1alpha1
+kind: KubeClusterConfig
+clusterName: pdxlan
+endpoint: https://172.16.12.101:6443
+---
+apiVersion: v1alpha1
+kind: KubeNodeConfig
+nodeIP: {}
+---
+apiVersion: v1alpha1
+kind: KubeletConfig
+image: ghcr.io/siderolabs/kubelet:v1.37.0
+config: {}
+defaultRuntimeSeccompProfileEnabled: true
+---
+apiVersion: v1alpha1
+kind: KubeNetworkConfig
+dnsDomain: cluster.local
+podSubnets:
+    - 10.244.0.0/16
+serviceSubnets:
+    - 10.96.0.0/12
+---
+apiVersion: v1alpha1
+kind: KubeAPIServerCAConfig
+acceptedCAs:
+    - |
+      -----BEGIN CERTIFICATE-----
+      MIIBijCCATCgAwIBAgIRAIhf5b3RhsEyCbFe3GDIcI8wCgYIKoZIzj0EAwIwFTET
+      MBEGA1UEChMKa3ViZXJuZXRlczAeFw0yNjA5MDcwNjQ1MDJaFw0zNjA5MDQwNjQ1
+      MDJaMBUxEzARBgNVBAoTCmt1YmVybmV0ZXMwWTATBgcqhkjOPQIBBggqhkjOPQMB
+      BwNCAATz+dZMlNeaMEUko1VE9gJg8AQIwiqcJjwElvygE39ap9Z8deq11uSB5H/p
+      G6vYOqgShUDiQNHjagRPJfgs7zGMo2EwXzAOBgNVHQ8BAf8EBAMCAoQwHQYDVR0l
+      BBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0O
+      BBYEFMBHI0joEEAAqQ2aHMwCW+d/Xy2fMAoGCCqGSM49BAMCA0gAMEUCIQDg5PS/
+      iKqyjR0QFCIJUDWcza5r4rHI3pymWmt7AR4UiQIgECXJm7p/PFBcvg/0Xe4WIEDj
+      Op1f1JnQyS+flGbf5Uc=
+      -----END CERTIFICATE-----
+---
+apiVersion: v1alpha1
+kind: KubePrismConfig
+port: 7445
+---
+apiVersion: v1alpha1
+kind: BondConfig
+name: Bond0
+links:
+    - ens33f0np0
+    - ens33f1np1
+bondMode: 802.3ad
+miimon: 100
+updelay: 5000
+downdelay: 2000
+xmitHashPolicy: layer3+4
+lacpRate: fast
+resendIGMP: 1
+up: true
+---
+apiVersion: v1alpha1
+kind: DHCPv4Config
+name: enp3s0f0np0

@@ -1,0 +1,2 @@
+export TALOSCONFIG="$PWD/talos/talosconfig"
+export KUBECONFIG="$PWD/k8s/pdxlan"

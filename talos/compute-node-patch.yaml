@@ -1,0 +1,22 @@
+machine:
+  install:
+    disk: /dev/nvme0n1
+---
+apiVersion: v1alpha1
+kind: BondConfig
+name: Bond0
+bondMode: 802.3ad
+links:
+  - ens33f0np0
+  - ens33f1np1
+miimon: 100
+updelay: 5000
+downdelay: 2000
+xmitHashPolicy: layer3+4
+lacpRate: fast
+resendIGMP: 1
+up: True
+---
+apiVersion: v1alpha1
+kind: DHCPv4Config
+name: enp3s0f0np0
