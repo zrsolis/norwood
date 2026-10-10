@@ -1,6 +1,7 @@
 ovsOvn:
   ovnDirectory: /var/lib/ovn
   ovsDirectory: /var/lib/openvswitch
+  ovsIpsecKeysDirectory: "/var/lib/ovs_ipsec_keys"
   disableModulesManagement: true
 networking:
   networkType: vlan 
@@ -14,5 +15,7 @@ networking:
       v4: "172.16.16.0/24"
     gateways:
       v4: "172.16.16.1"
+cni: 
+  mountToolingDirectory: false
 features:
   enableNetworkPolicies: false
