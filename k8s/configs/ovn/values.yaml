@@ -1,0 +1,18 @@
+ovsOvn:
+  ovnDirectory: /var/lib/ovn
+  ovsDirectory: /var/lib/openvswitch
+  disableModulesManagement: true
+networking:
+  networkType: vlan 
+  excludeIps: "172.16.16.1..172.16.16.15"
+  stack: "IPv4"
+  vlan: 
+    interfaceName: bond0
+    id: 0
+  pods:
+    cidr:
+      v4: "172.16.16.0/24"
+    gateways:
+      v4: "172.16.16.1"
+features:
+  enableNetworkPolicies: false
