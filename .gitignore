@@ -2,3 +2,5 @@ talos/worker.yaml
 talos/secrets.yaml
 talos/talosconfig
 talos/controlplane.yaml
+kubespray/
+configs/keys/norwood

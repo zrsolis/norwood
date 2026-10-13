@@ -1,0 +1,7 @@
+apiVersion: kubeovn.io/v1
+kind: ProviderNetwork
+metadata:
+  name: provider
+spec:
+  defaultInterface: ens1f0np0
+  autoCreateVlanSubinterfaces: true

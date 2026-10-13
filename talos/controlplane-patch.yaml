@@ -1,8 +1,6 @@
-apiVersion: v1alpha1
-kind: KubeNodeConfig
-taints:
-  node-role.kubernetes.io/control-plane:
-    $patch: delete
-labels:
-  node.kubernetes.io/exclude-from-external-load-balancers:
-    $patch: delete
+machine:
+  network:
+    interfaces:
+      - interface: ens1f0np0
+        ignore: true
+      - interface: ens1f1np1
