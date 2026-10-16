@@ -1,0 +1,19 @@
+apiVersion: apiserver.config.k8s.io/v1
+kind: AdmissionConfiguration
+plugins:
+- name: PodSecurity
+  configuration:
+    apiVersion: pod-security.admission.config.k8s.io/v1
+    kind: PodSecurityConfiguration
+    defaults:
+      enforce: "baseline"
+      audit: "restricted"
+      warn: "restricted"
+    exemptions:
+      usernames:
+      - system:serviceaccount:monitoring:node-exporter
+      runtimeClasses:
+      - privileged-class
+      namespaces:
+      - kube-system
+      - monitoring-system

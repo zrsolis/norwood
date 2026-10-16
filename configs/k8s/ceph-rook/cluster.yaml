@@ -1,0 +1,45 @@
+apiVersion: ceph.rook.io/v1
+kind: CephCluster
+metadata:
+  name: rook-ceph
+  namespace: rook-ceph
+spec:
+  cephVersion:
+    image: quay.io/ceph/ceph:v20.2.4
+  dataDirHostPath: /var/lib/rook
+  mon:
+    count: 3
+    allowMultiplePerNode: false
+  # enable the ceph dashboard for viewing cluster status
+  dashboard:
+    enabled: true
+  security:
+    cephx:
+      allowedCiphers:
+        - aes256k
+      daemon:
+        keyRotationPolicy: KeyGeneration
+        keyGeneration: 2
+  storage:
+    deviceFilter: sd[b-d]
+    useAllDevices: true
+    useAllNodes: true
+#  network:
+#    provider: host
+#    addressRanges:
+#      public:
+#        - "172.16.12.0/24" 
+  placement:
+    all:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: norwood/ceph-node
+              operator: In
+              values:
+              - "true"
+      tolerations:
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/control-plane
+        operator: Exists

@@ -2,5 +2,6 @@ talos/worker.yaml
 talos/secrets.yaml
 talos/talosconfig
 talos/controlplane.yaml
-kubespray/
+configs/k8s/cluster
 configs/keys/norwood
+kubespray/
