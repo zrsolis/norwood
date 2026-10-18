@@ -9,7 +9,7 @@ networking:
   excludeIps: "172.16.16.1..172.16.16.24"
   stack: "IPv4"
   vlan: 
-    interfaceName: bond0
+    interfaceName: ens1f0np0
     id: 0
   pods:
     cidr:

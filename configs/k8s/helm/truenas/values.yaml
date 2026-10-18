@@ -1,0 +1,6 @@
+truenas:
+  url: "wss://172.16.16.2"
+  apiKey: "1-4ce2ZdQfqbj80qT1mGKd0c1ZGtcfBHK3R60H2UytTVCv1sMNWldi2I6UgF50RA1m"
+  defaultPool: pdxlan
+  insecureSkipTLS: true
+  truenas.nvmeofPortal: "172.16.16.2:4420"

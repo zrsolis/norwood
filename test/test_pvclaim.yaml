@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pvc-test
+  template:
+    metadata:
+      labels:
+        app: pvc-test
+    spec:
+      containers:
+        - name: app
+          command: ["sleep", "infinity"]
+          image: ubuntu:latest
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: test
+              mountPath: /pvc
+            - name: truenas-volume
+              mountPath: /truenas
+      volumes:
+        - name: test
+          persistentVolumeClaim:
+            claimName: pvc-test
+        - name: truenas-volume
+          persistentVolumeClaim:
+            claimName: test-volume

@@ -4,4 +4,9 @@ metadata:
   name: provider
 spec:
   defaultInterface: ens1f0np0
+  customInterfaces:
+    - interface: ens33f0np0
+      nodes:
+        - k8s-compute1
+        - k8s-compute2
   autoCreateVlanSubinterfaces: true

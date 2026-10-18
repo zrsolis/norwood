@@ -1,0 +1,11 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: truenas-nvmeof
+provisioner: csi.truenas.io
+parameters:
+  protocol: "nvmeof"
+  hostNQN: "nqn.2011-06.com.truenas:uuid:2dc3e4ec-0e99-4180-9255-af25fe613292"
+allowVolumeExpansion: true
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
