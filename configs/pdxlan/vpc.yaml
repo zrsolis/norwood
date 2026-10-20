@@ -1,0 +1,8 @@
+kind: Vpc
+apiVersion: kubeovn.io/v1
+metadata:
+  name: vpc-pdxlan
+spec:
+  namespaces:
+  - pdxlan
+  defaultSubnet: pdxlan-net-public

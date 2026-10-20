@@ -1,0 +1,31 @@
+apiVersion: kubeovn.io/v1
+kind: Subnet
+metadata:
+  name: net-public
+spec:
+  protocol: IPv4
+  cidrBlock: 10.42.0.0/16
+  gateway: 10.42.0.1
+  vlan: pdxlan-vlan-public
+  disableGatewayCheck: true
+  namespaces:
+    - pdxlan
+  excludeIps: 
+    - 10.42.0.1..10.42.9.49
+    - 10.42.9.81..10.42.255.254
+  provider: pdxlan-net.pdxlan.ovn
+---
+apiVersion: kubeovn.io/v1
+kind: Subnet
+metadata:
+  name: pdxlan-pvt-nad
+spec:
+  protocol: IPv4
+  cidrBlock: 172.16.13.0/24
+  vlan: pdxlan-vlan-pvt
+  disableGatewayCheck: true
+  namespaces:
+    - pdxlan
+  excludeIps:
+    - 172.16.13.1..172.16.13.31 
+  provider: pdxlan-pvt-nad.pdxlan.ovn 

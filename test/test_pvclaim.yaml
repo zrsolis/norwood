@@ -16,7 +16,7 @@ spec:
       containers:
         - name: app
           command: ["sleep", "infinity"]
-          image: ubuntu:latest
+          image: nicolaka/netshoot:latest
           ports:
             - containerPort: 80
           volumeMounts:

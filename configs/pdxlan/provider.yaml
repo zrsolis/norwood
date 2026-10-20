@@ -1,0 +1,12 @@
+apiVersion: kubeovn.io/v1
+kind: ProviderNetwork
+metadata:
+  name: pdxlan-net
+spec:
+  defaultInterface: ens1f1np1
+  autoCreateVlanSubinterfaces: true
+  customInterfaces:
+    - interface: ens33f1np1
+      nodes:
+        - k8s-compute1
+        - k8s-compute2

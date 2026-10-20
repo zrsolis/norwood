@@ -1,0 +1,15 @@
+apiVersion: kubeovn.io/v1
+kind: Vlan
+metadata:
+  name: pdxlan-vlan-public
+spec:
+  id: 502
+  provider: pdxlan-net
+---
+apiVersion: kubeovn.io/v1
+kind: Vlan
+metadata:
+  name: pdxlan-vlan-pvt
+spec:
+  id: 503
+  provider: pdxlan-net

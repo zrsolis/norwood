@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pdxlan-net-test
+  namespace: pdxlan
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pvc-test
+  template:
+    metadata:
+      labels:
+        app: pvc-test
+      annotations:
+        k8s.v1.cni.cncf.io/networks: pdxlan/pdxlan-pvt-nad
+        ovn.kubernetes.io/logical_switch: "net-public"
+        pdxlan-pvt-nad.pdxlan.ovn.kubernetes.io/default_route: 'false'
+#        pdxlan-pvt-nad.pdxlan.ovn.kubernetes.io/routes: |
+#          [{
+#            "gw": "10.42.0.1"
+#          }]
+    spec:
+      containers:
+        - name: app
+          command: ["sleep", "infinity"]
+          image: nicolaka/netshoot:latest
+          ports:
+            - containerPort: 80
+#          volumeMounts:
+#            - name: test
+#              mountPath: /pvc
+#            - name: truenas-volume
+#              mountPath: /truenas
+#      volumes:
+#        - name: test
+#          persistentVolumeClaim:
+#            claimName: pvc-test
+#        - name: truenas-volume
+#          persistentVolumeClaim:
+#            claimName: test-volume
