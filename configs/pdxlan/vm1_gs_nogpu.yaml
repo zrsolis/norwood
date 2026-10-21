@@ -1,35 +1,41 @@
 apiVersion: kubevirt.io/v1
 kind: VirtualMachine
 metadata:
-  name: norwood-test
-  namespace: vms
+  name: windows-vm
+  namespace: pdxlan
 spec:
   running: false
   template:
     metadata:
       labels:
-        kubevirt.io/domain: norwood
+        kubevirt.io/domain: windows-vm
       annotations:
-        ovn.kubernetes.io/ip_address: 10.42.9.51
-        ovn.kubernetes.io/mac_address: 00:00:00:53:6B:00 
-        pdxlan-pvt-nad.pdxlan.ovn.kubernetes.io/ip_address: 172.16.13.128
-        pdxlan-pvt-nad.pdxlan.ovn.kubernetes.io/mac_address: 00:00:00:53:6B:01
-        kubevirt.io/allow-pod-bridge-network-live-migration: "true"
+        ovn.kubernetes.io/ip_address: 10.42.9.52
+        ovn.kubernetes.io/mac_address: 00:00:00:53:6B:02
+        pdxlan-pvt-nad.pdxlan.ovn.kubernetes.io/ip_address: 172.16.13.129
+        pdxlan-pvt-nad.pdxlan.ovn.kubernetes.io/mac_address: 00:00:00:53:6B:03
+        kubevirt.io/allow-pod-bridge-network-live-migration: 'true'
         k8s.v1.cni.cncf.io/networks: pdxlan/pdxlan-pvt-nad
-        ovn.kubernetes.io/logical_switch: "net-public"
+        ovn.kubernetes.io/logical_switch: net-public
         pdxlan-pvt-nad.pdxlan.ovn.kubernetes.io/default_route: 'false'
     spec:
       domain:
         cpu:
           cores: 6
+          model: host-passthrough
         resources:
           requests:
             memory: 24Gi
+        firmware:
+          bootloader:
+            efi: 
+              secureBoot: false
         devices:
           disks:
             - name: boot-iso
               cdrom:
                 bus: sata
+              bootOrder: 1
             - name: rootdisk
               disk:
                 bus: virtio
@@ -38,7 +44,7 @@ spec:
                 bus: virtio
             - name: virtio-driver
               cdrom:
-                bus: sata    
+                bus: sata
           interfaces:
             - name: default
               bridge: {}
@@ -48,13 +54,13 @@ spec:
       volumes:
         - name: boot-iso
           dataVolume:
-            name: boot-iso
+            name: windows-11-ltsc-iso
         - name: rootdisk
           persistentVolumeClaim:
-            name: test-rootdisk
+            claimName: vm1-root-storage
         - name: datadisk
           persistentVolumeClaim:
-            claimName: Vm1-gameStorage
+            claimName: vm1-game-storage
         - name: virtio-driver
-          image: kubevirt/virtio-container-disk
-          
+          dataVolume:
+            name: virtio

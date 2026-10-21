@@ -1,7 +1,7 @@
 apiVersion: cdi.kubevirt.io/v1beta1
 kind: DataVolume
 metadata:
-  name: Windows-11-LTSC-Iso
+  name: windows-11-ltsc-iso
   namespace: pdxlan
 spec:
   source:
@@ -10,7 +10,7 @@ spec:
   storage:
     storageClassName: rook-ceph-images
     accessModes:
-      - ReadOnlyMany
+      - ReadWriteMany
     resources:
       requests:
-        storage: 5Gi
+        storage: 8Gi

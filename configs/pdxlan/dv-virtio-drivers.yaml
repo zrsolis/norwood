@@ -1,0 +1,16 @@
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: virtio
+  namespace: pdxlan
+spec:
+  source:
+    http:
+      url: http://152.44.254.110/os/virtio-win-0.1.302.iso
+  storage:
+    storageClassName: rook-ceph-images
+    accessModes:
+      - ReadWriteMany
+    resources:
+      requests:
+        storage: 2Gi
