@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: Vm1-gameStorage
+  namespace: pdxlan
+spec:
+  storageClassName: truenas-nvmeof
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2000Gi

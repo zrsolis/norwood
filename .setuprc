@@ -1,2 +1,2 @@
 export TALOSCONFIG="$PWD/talos/talosconfig"
-export KUBECONFIG="$PWD/k8s/pdxlan"
+export KUBECONFIG="$PWD/configs/k8s/cluster/pdxlan.conf"
