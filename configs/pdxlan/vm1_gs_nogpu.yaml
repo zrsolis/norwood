@@ -19,9 +19,13 @@ spec:
         ovn.kubernetes.io/logical_switch: net-public
         pdxlan-pvt-nad.pdxlan.ovn.kubernetes.io/default_route: 'false'
     spec:
+      dnsPolicy: None
+      dnsConfig:
+        nameservers:
+          - 10.42.0.1  
       domain:
         cpu:
-          cores: 6
+          cores: 12
           model: host-passthrough
         resources:
           requests:
@@ -48,9 +52,14 @@ spec:
           interfaces:
             - name: default
               bridge: {}
+            - name: pdxlan-net-private
+              bridge: {}
       networks:
         - name: default
           pod: {}
+        - name: pdxlan-net-private
+          multus: 
+            networkName: pdxlan-pvt-nad
       volumes:
         - name: boot-iso
           dataVolume:
