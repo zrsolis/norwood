@@ -1,0 +1,88 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: windows-vm-gpu
+  namespace: pdxlan
+spec:
+  running: false
+  template:
+    metadata:
+      labels:
+        kubevirt.io/domain: windows-vm-gpu
+      annotations:
+        ovn.kubernetes.io/ip_address: 10.42.9.53
+        ovn.kubernetes.io/mac_address: 00:00:00:53:6B:04
+        ovn.kubernetes.io/default_route: 'true'
+#        ovn.kubernetes.io/routes: |
+#          [{ "gw": "10.42.0.1" }]
+        pdxlan-pvt-nad.pdxlan.ovn.kubernetes.io/ip_address: 172.16.13.130
+        pdxlan-pvt-nad.pdxlan.ovn.kubernetes.io/mac_address: 00:00:00:53:6B:05
+        kubevirt.io/allow-pod-bridge-network-live-migration: 'true'
+        k8s.v1.cni.cncf.io/networks: pdxlan/pdxlan-pvt-nad
+        ovn.kubernetes.io/logical_switch: net-public
+        pdxlan-pvt-nad.pdxlan.ovn.kubernetes.io/default_route: 'false'
+    spec:
+      dnsPolicy: None
+      dnsConfig:
+        nameservers:
+          - 10.42.0.1  
+      domain:
+        cpu:
+          cores: 12
+          model: host-passthrough
+        memory:
+          hugepages:
+            pageSize: 1Gi
+        resources:
+          requests:
+            memory: 24Gi
+        firmware:
+          bootloader:
+            efi: 
+              secureBoot: false
+        devices:
+          video:
+            type: virtio
+          disks:
+            - name: boot-iso
+              cdrom:
+                bus: sata
+              bootOrder: 1
+            - name: rootdisk
+              disk:
+                bus: virtio
+            - name: datadisk
+              disk:
+                bus: virtio
+            - name: virtio-driver
+              cdrom:
+                bus: sata
+          interfaces:
+            - name: default
+              bridge: {}
+            - name: pdxlan-net-private
+              bridge: {}
+          gpus:
+            - deviceName: nvidia.com/GB203GL_RTX_PRO_4000_BLACKWELL
+              name: gpu1
+#            - deviceName: nvidia.com/22e9
+#              name: gpuAudio 
+      networks:
+        - name: default
+          pod: {}
+        - name: pdxlan-net-private
+          multus: 
+            networkName: pdxlan-pvt-nad
+      volumes:
+        - name: boot-iso
+          dataVolume:
+            name: windows-11-ltsc-iso
+        - name: rootdisk
+          persistentVolumeClaim:
+            claimName: vm2-root-storage
+        - name: datadisk
+          persistentVolumeClaim:
+            claimName: vm2-game-storage
+        - name: virtio-driver
+          dataVolume:
+            name: virtio

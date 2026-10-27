@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: norwood-ada-vm4-root
+  namespace: pdxlan
+spec:
+  storageClassName: boot-volumes
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi

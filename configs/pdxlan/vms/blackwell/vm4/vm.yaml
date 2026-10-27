@@ -1,0 +1,90 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: norwood-blackwell-vm4
+  namespace: pdxlan
+spec:
+  running: false
+  template:
+    metadata:
+      labels:
+        kubevirt.io/domain: norwood-blackwell-vm4
+      annotations:
+        ovn.kubernetes.io/ip_address: 10.42.9.57
+        ovn.kubernetes.io/mac_address: C0:FF:EE:00:00:A4
+        ovn.kubernetes.io/default_route: 'true'
+        pdxlan-pvt-nad.pdxlan.ovn.kubernetes.io/ip_address: 172.16.13.135
+        pdxlan-pvt-nad.pdxlan.ovn.kubernetes.io/mac_address: C0:FF:EE:00:00:A5
+        kubevirt.io/allow-pod-bridge-network-live-migration: 'true'
+        k8s.v1.cni.cncf.io/networks: pdxlan/pdxlan-pvt-nad
+        ovn.kubernetes.io/logical_switch: net-public
+        pdxlan-pvt-nad.pdxlan.ovn.kubernetes.io/default_route: 'false'
+    spec:
+      dnsPolicy: None
+      dnsConfig:
+        nameservers:
+          - 10.42.0.1  
+      domain:
+        features:
+          hyperv:
+            spinlocks:
+              spinlocks: 8191
+            relaxed: {}
+            vapic: {}
+        cpu:
+          cores: 12
+          model: host-passthrough
+        memory:
+          hugepages:
+            pageSize: 1Gi
+        resources:
+          requests:
+            memory: 24Gi
+        firmware:
+          bootloader:
+            efi: 
+              secureBoot: false
+        devices:
+          video:
+            type: virtio
+          disks:
+            - name: boot-iso
+              cdrom:
+                bus: sata
+              bootOrder: 1
+            - name: rootdisk
+              disk:
+                bus: virtio
+            - name: datadisk
+              disk:
+                bus: virtio
+            - name: virtio-driver
+              cdrom:
+                bus: sata
+          interfaces:
+            - name: default
+              bridge: {}
+            - name: pdxlan-net-private
+              bridge: {}
+          gpus:
+            - deviceName: nvidia.com/GB203GL_RTX_PRO_4000_BLACKWELL
+              name: gpu1
+      networks:
+        - name: default
+          pod: {}
+        - name: pdxlan-net-private
+          multus: 
+            networkName: pdxlan-pvt-nad
+      volumes:
+        - name: boot-iso
+          dataVolume:
+            name: windows-11-ltsc-iso
+        - name: rootdisk
+          persistentVolumeClaim:
+            claimName: norwood-blackwell-vm4-root
+        - name: datadisk
+          persistentVolumeClaim:
+            claimName: norwood-blackwell-vm4-games
+        - name: virtio-driver
+          dataVolume:
+            name: virtio
