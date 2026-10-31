@@ -4,7 +4,7 @@ metadata:
   name: norwood-blackwell-vm3
   namespace: pdxlan
 spec:
-  running: false
+  runStrategy: RerunOnFailure
   template:
     metadata:
       labels:
