@@ -1,7 +1,8 @@
-machine:
-  network:
-    interfaces:
-      - interface: ens1f0np0
-        ignore: true
-      - interface: ens1f1np1
-        ignore: true
+apiVersion: v1alpha1
+kind: UnattendedInstallConfig
+installer:
+  image: factory.talos.dev/metal-installer/5245b54eac02e45d49e7eb33c3b20e1715a2c0796a1fe6db72e9d288b8d1654e:v1.14.5
+provisioning:
+  diskSelector:
+    match: disk.dev_path == "/dev/sda"
+  wipe: true
