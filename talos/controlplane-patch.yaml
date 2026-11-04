@@ -4,3 +4,4 @@ machine:
       - interface: ens1f0np0
         ignore: true
       - interface: ens1f1np1
+        ignore: true

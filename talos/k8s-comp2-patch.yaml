@@ -1,12 +1,12 @@
 apiVersion: v1alpha1
 kind: HostnameConfig
-hostname: k8s-comp2
+hostname: k8s-compute2
 auto:
   $patch: delete
 ---
 apiVersion: v1alpha1
 kind: LinkConfig
-name: enp6s0f0np0
+name: enp194s0f1
 up: true
 addresses:
   - address: 172.16.12.20/24

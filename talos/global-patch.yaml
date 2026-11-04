@@ -23,3 +23,8 @@ ntp:
 apiVersion: v1alpha1
 kind: KubeFlannelCNIConfig
 $patch: delete 
+---
+apiVersion: v1alpha1
+kind: KubeletConfig
+extraArgs:
+  node-ip: "0.0.0.0"

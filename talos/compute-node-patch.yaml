@@ -1,27 +1,30 @@
 machine:
   network:
     interfaces:
-      - interface: ens1f0np0
+      - interface: ens33f0np0
         ignore: true
-      - interface: ens1f1np1
+      - interface: ens33f1np1
         ignore: true
   kernel:
-  - modules:
+    modules:
     - name: vfio
     - name: vfio_iommu_type1
     - name: vfio_pci
-    - name: vfio_virqfd
-  install:
-    extraKernelArgs:
-      - amd_iommu=on
-      - iommu=pt
-      - hugepagesz=1G
-      - hugepages=96
-      - default_hugepagesz=1G
+#    - name: vfio_virqfd
+#  install:
+#    disk: /dev/nvme1n1
+#    extraKernelArgs:
+#      - amd_iommu=on
+#      - iommu=pt
+#      - hugepagesz=1G
+#      - hugepages=96
+#      - default_hugepagesz=1G
 ---
 apiVersion: v1alpha1
 kind: UnattendedInstallConfig
+installer:
+  image: factory.talos.dev/metal-installer/5d28ace0c71775c38f880d8fce3f037a4836129d8e014dd35401366e00f91daa:v1.14.5
 provisioning:
   diskSelector:
-    match: disk.dev_path == "/dev/nvme1n1"
+    match: disk.dev_path == "/dev/nvme0n1"
   wipe: true
