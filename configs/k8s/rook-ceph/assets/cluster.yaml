@@ -24,11 +24,6 @@ spec:
     deviceFilter: sd[b-d]
     useAllDevices: true
     useAllNodes: true
-#  network:
-#    provider: host
-#    addressRanges:
-#      public:
-#        - "172.16.13.0/24" 
   placement:
     all:
       nodeAffinity:
