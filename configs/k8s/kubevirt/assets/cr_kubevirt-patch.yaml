@@ -1,0 +1,9 @@
+spec:
+  infra:
+    nodePlacement:
+      nodeSelector:
+        norwood/controller: "true"
+  workloads:
+    nodePlacement:
+      nodeSelector:
+        norwood/compute: "true"
