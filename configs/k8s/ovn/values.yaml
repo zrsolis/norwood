@@ -1,4 +1,3 @@
-# Disabling ovsOvn config as not necessary for non-Talos
 ovsOvn:
   ovnDirectory: /var/lib/ovn
   ovsDirectory: /var/lib/openvswitch
@@ -16,7 +15,10 @@ networking:
       v4: "172.16.16.0/24"
     gateways:
       v4: "172.16.16.1"
-# Disabling cni config as not necessary for non-Talos
+pinger:
+  targets:
+    externalAddresses:
+      v4: "172.16.16.1"
 cni: 
   mountToolingDirectory: false
 features:
