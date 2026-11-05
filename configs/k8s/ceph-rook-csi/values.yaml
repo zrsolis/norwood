@@ -1,6 +1,0 @@
-nodeSelector:
-  norwood/ceph-node: "true"
-enableDiscoveryDaemon: true
-discover:
-  nodeAffinity:
-    norwood/ceph-node: "true"
