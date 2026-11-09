@@ -7,3 +7,10 @@ spec:
     nodePlacement:
       nodeSelector:
         norwood/compute: "true"
+  configuration:
+    permittedHostDevices:
+      pciHostDevices:
+        - pciVendorSelector: "10de:27b2"
+          resourceName: "nvidia.com/AD104GL_RTX_4000_ADA_GENERATION"
+        - pciVendorSelector: "10de:2c34"
+          resourceName: "nvidia.com/GB203GL_RTX_PRO_4000_BLACKWELL"
