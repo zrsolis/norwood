@@ -6,7 +6,7 @@ metadata:
 spec:
   source:
     http:
-      url: http://152.44.254.110/os/virtio-win-0.1.302.iso
+      url: https://actuallyisos.com/os/virtio-win-0.1.302.iso
   storage:
     storageClassName: rook-ceph-images
     accessModes:

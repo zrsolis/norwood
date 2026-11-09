@@ -6,7 +6,7 @@ metadata:
 spec:
   source:
     http:
-      url: http://152.44.254.110/os/26100.1742.240906-0331.ge_release_svc_refresh_CLIENT_IOT_LTSC_EVAL_x64FRE_en-us.iso
+      url: https://actuallyisos.com/os/26100.1742.240906-0331.ge_release_svc_refresh_CLIENT_IOT_LTSC_EVAL_x64FRE_en-us.iso
   storage:
     storageClassName: rook-ceph-images
     accessModes:
