@@ -6,3 +6,18 @@ provisioning:
   diskSelector:
     match: disk.dev_path == "/dev/sda"
   wipe: true
+---
+apiVersion: v1alpha1
+kind: EthernetConfig
+name: ens1f0np0
+rings: 
+  rx: 8192
+  tx: 8192
+---
+apiVersion: v1alpha1
+kind: SysctlConfig
+params: 
+  net.core.rmem_max: "16777216"
+  net.core.rmem_default: "1048576"
+  net.ipv4.tcp_rmem: "4096 1048576 16777216"
+  net.core.netdev_max_backlog: "5000"
