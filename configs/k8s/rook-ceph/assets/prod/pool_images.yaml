@@ -8,3 +8,6 @@ spec:
   replicated:
     size: 3
   deviceClass: ssd
+  parameters:
+    pg_num: "128"
+    pgp_num: "128"
