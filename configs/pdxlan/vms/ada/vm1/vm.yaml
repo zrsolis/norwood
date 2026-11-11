@@ -54,10 +54,10 @@ spec:
               bootOrder: 1
             - name: rootdisk
               disk:
-                bus: virtio
+                bus: scsi
             - name: datadisk
               disk:
-                bus: virtio
+                bus: scsi
             - name: virtio-driver
               cdrom:
                 bus: sata
